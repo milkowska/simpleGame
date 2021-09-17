@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class Bird : MonoBehaviour
 {
     private Vector3 _initialPosition;
-    [SerializeField] private float _launchPower = 500;
+    private bool birdWasLaunched;
+    private float timeSittingAround;
+
+    [SerializeField] private float _launchPower = 60;
 
     public void Awake()
     {
@@ -14,11 +17,17 @@ public class Bird : MonoBehaviour
     }
     private void Update()
     {
-        if(transform.position.y > 10)
+        if( birdWasLaunched && GetComponent<Rigidbody2D>().velocity.magnitude <= 0.1)
+        {
+            timeSittingAround += Time.deltaTime;
+        }
+
+        if(transform.position.y > 10 || transform.position.y <-10 || transform.position.x > 10 || transform.position.x < -10 || timeSittingAround >3)
         {
             string currentScene = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(currentScene);
         }
+     
     }
     private void OnMouseDown()
     {
@@ -31,6 +40,7 @@ public class Bird : MonoBehaviour
         Vector2 directionToInitialPosition = _initialPosition - transform.position; // the difference between initial and current position
         GetComponent<Rigidbody2D>().AddForce(directionToInitialPosition * _launchPower);
         GetComponent<Rigidbody2D>().gravityScale = 1;
+        birdWasLaunched = true;
     }
     private void OnMouseDrag()
     {
