@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Bird : MonoBehaviour
 {
     private Vector3 _initialPosition;
+    [SerializeField] private float _launchPower = 500;
 
     public void Awake()
     {
@@ -28,7 +29,7 @@ public class Bird : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().color = Color.white;
         Vector2 directionToInitialPosition = _initialPosition - transform.position; // the difference between initial and current position
-        GetComponent<Rigidbody2D>().AddForce(directionToInitialPosition * 600);
+        GetComponent<Rigidbody2D>().AddForce(directionToInitialPosition * _launchPower);
         GetComponent<Rigidbody2D>().gravityScale = 1;
     }
     private void OnMouseDrag()
