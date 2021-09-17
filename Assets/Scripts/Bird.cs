@@ -17,6 +17,7 @@ public class Bird : MonoBehaviour
     }
     private void Update()
     {
+
         if( birdWasLaunched && GetComponent<Rigidbody2D>().velocity.magnitude <= 0.1)
         {
             timeSittingAround += Time.deltaTime;
@@ -32,6 +33,7 @@ public class Bird : MonoBehaviour
     private void OnMouseDown()
     {
         GetComponent<SpriteRenderer>().color = Color.red;
+        
     }
 
     private void OnMouseUp()
@@ -41,6 +43,7 @@ public class Bird : MonoBehaviour
         GetComponent<Rigidbody2D>().AddForce(directionToInitialPosition * _launchPower);
         GetComponent<Rigidbody2D>().gravityScale = 1;
         birdWasLaunched = true;
+       
     }
     private void OnMouseDrag()
     {
